@@ -9,15 +9,15 @@ export async function main(event, context) {
     Item: {
       userId: event.requestContext.identity.cognitoIdentityId,
       productId: uuid.v1(),
-      name: data.name,
-      description: data.description,
-      price: data.price,
-      salePrice: data.salePrice,
-      onSale: data.onSale,
-      sizes: data.sizes,
-      colors: data.colors,
-      photos: data.photos,
-      tags: data.tags,
+      productName: data.productName,
+      productDescription: data.productDescription,
+      productPrice: data.productPrice,
+      productSalePrice: data.productSalePrice,
+      productOnSale: data.productOnSale,
+      productSizes: data.productSizes,
+      productColors: data.productColors,
+      productPhotos: data.productPhotos,
+      productTags: data.productTags,
       createdAt: Date.now()
     }
   };

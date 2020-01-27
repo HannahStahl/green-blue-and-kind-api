@@ -14,17 +14,17 @@ export async function main(event, context) {
     },
     // 'UpdateExpression' defines the attributes to be updated
     // 'ExpressionAttributeValues' defines the value in the update expression
-    UpdateExpression: "SET name = :name, description = :description, price = :price, salePrice = :salePrice, onSale = :onSale, sizes = :sizes, colors = :colors, photos = :photos, tags = :tags",
+    UpdateExpression: "SET productName = :productName, productDescription = :productDescription, productPrice = :productPrice, productSalePrice = :productSalePrice, productOnSale = :productOnSale, productSizes = :productSizes, productColors = :productColors, productPhotos = :productPhotos, productTags = :productTags",
     ExpressionAttributeValues: {
-      ":name": data.name || null,
-      ":description": data.description || null,
-      ":price": data.price || null,
-      ":salePrice": data.salePrice || null,
-      ":onSale": data.onSale || null,
-      ":sizes": data.sizes || null,
-      ":colors": data.colors || null,
-      ":photos": data.photos || null,
-      ":tags": data.tags || null,
+      ":productName": data.productName || null,
+      ":productDescription": data.productDescription || null,
+      ":productPrice": data.productPrice || null,
+      ":productSalePrice": data.productSalePrice || null,
+      ":productOnSale": data.productOnSale || null,
+      ":productSizes": data.productSizes || null,
+      ":productColors": data.productColors || null,
+      ":productPhotos": data.productPhotos || null,
+      ":productTags": data.productTags || null,
     },
     // 'ReturnValues' specifies if and how to return the item's attributes,
     // where ALL_NEW returns all attributes of the item after the update; you
