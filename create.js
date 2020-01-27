@@ -8,9 +8,16 @@ export async function main(event, context) {
     TableName: process.env.tableName,
     Item: {
       userId: event.requestContext.identity.cognitoIdentityId,
-      noteId: uuid.v1(),
-      content: data.content,
-      attachment: data.attachment,
+      productId: uuid.v1(),
+      name: data.name,
+      description: data.description,
+      price: data.price,
+      salePrice: data.salePrice,
+      onSale: data.onSale,
+      sizes: data.sizes,
+      colors: data.colors,
+      photos: data.photos,
+      tags: data.tags,
       createdAt: Date.now()
     }
   };
@@ -18,7 +25,7 @@ export async function main(event, context) {
   try {
     await dynamoDbLib.call("put", params);
     return success(params.Item);
-  } catch (e) {
-    return failure({ status: false });
+  } catch (error) {
+    return failure({ status: false, error });
   }
 }

@@ -6,17 +6,17 @@ export async function main(event, context) {
     TableName: process.env.tableName,
     // 'Key' defines the partition key and sort key of the item to be removed
     // - 'userId': Identity Pool identity id of the authenticated user
-    // - 'noteId': path parameter
+    // - 'productId': path parameter
     Key: {
       userId: event.requestContext.identity.cognitoIdentityId,
-      noteId: event.pathParameters.id
+      productId: event.pathParameters.id
     }
   };
 
   try {
     await dynamoDbLib.call("delete", params);
     return success({ status: true });
-  } catch (e) {
-    return failure({ status: false });
+  } catch (error) {
+    return failure({ status: false, error });
   }
 }

@@ -7,17 +7,24 @@ export async function main(event, context) {
     TableName: process.env.tableName,
     // 'Key' defines the partition key and sort key of the item to be updated
     // - 'userId': Identity Pool identity id of the authenticated user
-    // - 'noteId': path parameter
+    // - 'productId': path parameter
     Key: {
       userId: event.requestContext.identity.cognitoIdentityId,
-      noteId: event.pathParameters.id
+      productId: event.pathParameters.id
     },
     // 'UpdateExpression' defines the attributes to be updated
     // 'ExpressionAttributeValues' defines the value in the update expression
-    UpdateExpression: "SET content = :content, attachment = :attachment",
+    UpdateExpression: "SET name = :name, description = :description, price = :price, salePrice = :salePrice, onSale = :onSale, sizes = :sizes, colors = :colors, photos = :photos, tags = :tags",
     ExpressionAttributeValues: {
-      ":attachment": data.attachment || null,
-      ":content": data.content || null
+      ":name": data.name || null,
+      ":description": data.description || null,
+      ":price": data.price || null,
+      ":salePrice": data.salePrice || null,
+      ":onSale": data.onSale || null,
+      ":sizes": data.sizes || null,
+      ":colors": data.colors || null,
+      ":photos": data.photos || null,
+      ":tags": data.tags || null,
     },
     // 'ReturnValues' specifies if and how to return the item's attributes,
     // where ALL_NEW returns all attributes of the item after the update; you
@@ -28,7 +35,7 @@ export async function main(event, context) {
   try {
     await dynamoDbLib.call("update", params);
     return success({ status: true });
-  } catch (e) {
-    return failure({ status: false });
+  } catch (error) {
+    return failure({ status: false, error });
   }
 }

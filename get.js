@@ -6,10 +6,10 @@ export async function main(event, context) {
     TableName: process.env.tableName,
     // 'Key' defines the partition key and sort key of the item to be retrieved
     // - 'userId': Identity Pool identity id of the authenticated user
-    // - 'noteId': path parameter
+    // - 'productId': path parameter
     Key: {
       userId: event.requestContext.identity.cognitoIdentityId,
-      noteId: event.pathParameters.id
+      productId: event.pathParameters.id
     }
   };
 
@@ -21,7 +21,7 @@ export async function main(event, context) {
     } else {
       return failure({ status: false, error: "Item not found." });
     }
-  } catch (e) {
-    return failure({ status: false });
+  } catch (error) {
+    return failure({ status: false, error });
   }
 }
