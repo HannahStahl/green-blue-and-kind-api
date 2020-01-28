@@ -31,3 +31,19 @@ Resources:
           KeyType: RANGE
       # Set the capacity to auto-scale
       BillingMode: PAY_PER_REQUEST
+  ProductsToTagsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${self:custom.productToTagTableName}
+      AttributeDefinitions:
+        - AttributeName: userId
+          AttributeType: S
+        - AttributeName: productToTagId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: userId
+          KeyType: HASH
+        - AttributeName: productToTagId
+          KeyType: RANGE
+      # Set the capacity to auto-scale
+      BillingMode: PAY_PER_REQUEST

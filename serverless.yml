@@ -16,6 +16,7 @@ custom:
   # Set the table name here so we can use it while testing locally
   productTableName: ${self:custom.stage}-products
   tagTableName: ${self:custom.stage}-tags
+  productToTagTableName: ${self:custom.stage}-productsToTags
 
 provider:
   name: aws
@@ -28,6 +29,7 @@ provider:
   environment:
     productTableName: ${self:custom.productTableName}
     tagTableName: ${self:custom.tagTableName}
+    productToTagTableName: ${self:custom.productToTagTableName}
 
   iamRoleStatements:
     - Effect: Allow
@@ -44,6 +46,7 @@ provider:
       Resource:
         - "Fn::GetAtt": [ ProductsTable, Arn ]
         - "Fn::GetAtt": [ TagsTable, Arn ]
+        - "Fn::GetAtt": [ ProductsToTagsTable, Arn ]
 
 functions:
   # Defines an HTTP API endpoint that calls the main function in products/create.js
@@ -52,7 +55,7 @@ functions:
   # - cors: enabled CORS (Cross-Origin Resource Sharing) for browser cross
   #     domain api call
   # - authorizer: authenticate using the AWS IAM role
-  create:
+  createProduct:
     handler: products/create.main
     events:
       - http:
@@ -61,7 +64,7 @@ functions:
           cors: true
           authorizer: aws_iam
 
-  get:
+  getProduct:
     # Defines an HTTP API endpoint that calls the main function in products/get.js
     # - path: url path is /products/{id}
     # - method: GET request
@@ -71,9 +74,8 @@ functions:
           path: products/{id}
           method: get
           cors: true
-          authorizer: aws_iam
 
-  list:
+  listProducts:
     # Defines an HTTP API endpoint that calls the main function in products/list.js
     # - path: url path is /products
     # - method: GET request
@@ -83,9 +85,8 @@ functions:
           path: products
           method: get
           cors: true
-          authorizer: aws_iam
 
-  update:
+  updateProduct:
     # Defines an HTTP API endpoint that calls the main function in products/update.js
     # - path: url path is /products/{id}
     # - method: PUT request
@@ -97,7 +98,7 @@ functions:
           cors: true
           authorizer: aws_iam
 
-  delete:
+  deleteProduct:
     # Defines an HTTP API endpoint that calls the main function in products/delete.js
     # - path: url path is /products/{id}
     # - method: DELETE request
@@ -115,7 +116,7 @@ functions:
   # - cors: enabled CORS (Cross-Origin Resource Sharing) for browser cross
   #     domain api call
   # - authorizer: authenticate using the AWS IAM role
-  create:
+  createTag:
     handler: tags/create.main
     events:
       - http:
@@ -124,7 +125,7 @@ functions:
           cors: true
           authorizer: aws_iam
 
-  get:
+  getTag:
     # Defines an HTTP API endpoint that calls the main function in tags/get.js
     # - path: url path is /tags/{id}
     # - method: GET request
@@ -134,9 +135,19 @@ functions:
           path: tags/{id}
           method: get
           cors: true
-          authorizer: aws_iam
 
-  delete:
+  listTags:
+    # Defines an HTTP API endpoint that calls the main function in tags/list.js
+    # - path: url path is /tags
+    # - method: GET request
+    handler: tags/list.main
+    events:
+      - http:
+          path: tags
+          method: get
+          cors: true
+
+  deleteTag:
     # Defines an HTTP API endpoint that calls the main function in tags/delete.js
     # - path: url path is /tags/{id}
     # - method: DELETE request
@@ -144,6 +155,44 @@ functions:
     events:
       - http:
           path: tags/{id}
+          method: delete
+          cors: true
+          authorizer: aws_iam
+
+  # Defines an HTTP API endpoint that calls the main function in productsToTags/create.js
+  # - path: url path is /productsToTags
+  # - method: POST request
+  # - cors: enabled CORS (Cross-Origin Resource Sharing) for browser cross
+  #     domain api call
+  # - authorizer: authenticate using the AWS IAM role
+  createProductToTag:
+    handler: productsToTags/create.main
+    events:
+      - http:
+          path: productsToTags
+          method: post
+          cors: true
+          authorizer: aws_iam
+
+  listProductsToTags:
+    # Defines an HTTP API endpoint that calls the main function in productsToTags/list.js
+    # - path: url path is /productsToTags/{id}
+    # - method: GET request
+    handler: productsToTags/list.main
+    events:
+      - http:
+          path: productsToTags/{id}
+          method: get
+          cors: true
+
+  deleteProductToTag:
+    # Defines an HTTP API endpoint that calls the main function in productsToTags/delete.js
+    # - path: url path is /productsToTags/{id}
+    # - method: DELETE request
+    handler: productsToTags/delete.main
+    events:
+      - http:
+          path: productsToTags/{id}
           method: delete
           cors: true
           authorizer: aws_iam
