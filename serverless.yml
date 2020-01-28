@@ -14,7 +14,8 @@ custom:
   # commands. Or fallsback to what we have set in the provider section.
   stage: ${opt:stage, self:provider.stage}
   # Set the table name here so we can use it while testing locally
-  tableName: ${self:custom.stage}-products
+  productTableName: ${self:custom.stage}-products
+  tagTableName: ${self:custom.stage}-tags
 
 provider:
   name: aws
@@ -25,7 +26,8 @@ provider:
   # These environment variables are made available to our functions
   # under process.env.
   environment:
-    tableName: ${self:custom.tableName}
+    productTableName: ${self:custom.productTableName}
+    tagTableName: ${self:custom.tagTableName}
 
   iamRoleStatements:
     - Effect: Allow
@@ -41,16 +43,17 @@ provider:
       # the specific table for the stage
       Resource:
         - "Fn::GetAtt": [ ProductsTable, Arn ]
+        - "Fn::GetAtt": [ TagsTable, Arn ]
 
 functions:
-  # Defines an HTTP API endpoint that calls the main function in create.js
+  # Defines an HTTP API endpoint that calls the main function in products/create.js
   # - path: url path is /products
   # - method: POST request
   # - cors: enabled CORS (Cross-Origin Resource Sharing) for browser cross
   #     domain api call
   # - authorizer: authenticate using the AWS IAM role
   create:
-    handler: create.main
+    handler: products/create.main
     events:
       - http:
           path: products
@@ -59,10 +62,10 @@ functions:
           authorizer: aws_iam
 
   get:
-    # Defines an HTTP API endpoint that calls the main function in get.js
+    # Defines an HTTP API endpoint that calls the main function in products/get.js
     # - path: url path is /products/{id}
     # - method: GET request
-    handler: get.main
+    handler: products/get.main
     events:
       - http:
           path: products/{id}
@@ -71,10 +74,10 @@ functions:
           authorizer: aws_iam
 
   list:
-    # Defines an HTTP API endpoint that calls the main function in list.js
+    # Defines an HTTP API endpoint that calls the main function in products/list.js
     # - path: url path is /products
     # - method: GET request
-    handler: list.main
+    handler: products/list.main
     events:
       - http:
           path: products
@@ -83,10 +86,10 @@ functions:
           authorizer: aws_iam
 
   update:
-    # Defines an HTTP API endpoint that calls the main function in update.js
+    # Defines an HTTP API endpoint that calls the main function in products/update.js
     # - path: url path is /products/{id}
     # - method: PUT request
-    handler: update.main
+    handler: products/update.main
     events:
       - http:
           path: products/{id}
@@ -95,10 +98,10 @@ functions:
           authorizer: aws_iam
 
   delete:
-    # Defines an HTTP API endpoint that calls the main function in delete.js
+    # Defines an HTTP API endpoint that calls the main function in products/delete.js
     # - path: url path is /products/{id}
     # - method: DELETE request
-    handler: delete.main
+    handler: products/delete.main
     events:
       - http:
           path: products/{id}
