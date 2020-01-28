@@ -15,7 +15,6 @@ export async function main(event, context) {
     //   of the authenticated user
     // - ':productId': path parameter
     KeyConditionExpression: "userId = :userId",
-    FilterExpression: "productId = :productId",
     ExpressionAttributeValues: {
       ":userId": event.requestContext.identity.cognitoIdentityId
     }
