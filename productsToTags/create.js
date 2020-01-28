@@ -8,6 +8,7 @@ export async function main(event, context) {
     TableName: process.env.productToTagTableName,
     Item: {
       userId: event.requestContext.identity.cognitoIdentityId,
+      productToTagId: uuid.v1(),
       productId: data.productId,
       tagId: data.tagId,
       createdAt: Date.now()
