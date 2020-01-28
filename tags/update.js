@@ -44,7 +44,7 @@ export async function main(event, context) {
       if (!selectedTagIds.includes(productToTag.tagId)) {
         promises.push(dynamoDbLib.call("delete", {
           TableName: process.env.productToTagTableName,
-          Item: { userId, productToTagId: productToTag.productToTagId }
+          Key: { userId, productToTagId: productToTag.productToTagId }
         }));
       }
     });
@@ -82,12 +82,12 @@ export async function main(event, context) {
     ]);
     const tags = result3.Items;
     const usedTagIds = result4.Items.map(productToTag => productToTag.tagId);
-    const tagIdsToRemove = tags.filter(tag => !usedTagIds.includes(tag.tagId));
+    const tagIdsToRemove = tags.map(tag => tag.tagId).filter(tagId => !usedTagIds.includes(tagId));
     promises = [];
     tagIdsToRemove.forEach((tagId) => {
       promises.push(dynamoDbLib.call("delete", {
         TableName: process.env.tagTableName,
-        Item: { userId, tagId }
+        Key: { userId, tagId }
       }));
     });
     await Promise.all(promises);
