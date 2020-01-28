@@ -9,7 +9,7 @@ export async function main(event, context) {
 
   try {
     // Add any new tags that were created to tags table
-    let result = await dynamoDbLib.call("query", {
+    const result = await dynamoDbLib.call("query", {
       TableName: process.env.tagTableName,
       KeyConditionExpression: "userId = :userId",
       ExpressionAttributeValues: { ":userId": userId }
@@ -33,13 +33,13 @@ export async function main(event, context) {
     });
 
     // Delete any removed productToTag relationships for this product from productToTags table
-    result = await dynamoDbLib.call("query", {
+    const result2 = await dynamoDbLib.call("query", {
       TableName: process.env.productToTagTableName,
       KeyConditionExpression: "userId = :userId",
       FilterExpression: "productId = :productId",
       ExpressionAttributeValues: { ":userId": userId, ":productId": productId }
     });
-    const existingProductToTags = result.Items;
+    const existingProductToTags = result2.Items;
     existingProductToTags.forEach((productToTag) => {
       if (!selectedTagIds.includes(productToTag.tagId)) {
         promises.push(dynamoDbLib.call("delete", {
@@ -68,7 +68,7 @@ export async function main(event, context) {
     await Promise.all(promises);
 
     // Delete any no-longer-used tags from tags table
-    const [result, result2] = await Promise.all([
+    const [result3, result4] = await Promise.all([
       dynamoDbLib.call("query", {
         TableName: process.env.tagTableName,
         KeyConditionExpression: "userId = :userId",
@@ -80,8 +80,8 @@ export async function main(event, context) {
         ExpressionAttributeValues: { ":userId": userId }
       }),
     ]);
-    const tags = result.Items;
-    const usedTagIds = result2.Items.map(productToTag => productToTag.tagId);
+    const tags = result3.Items;
+    const usedTagIds = result4.Items.map(productToTag => productToTag.tagId);
     const tagIdsToRemove = tags.filter(tag => !usedTagIds.includes(tag.tagId));
     promises = [];
     tagIdsToRemove.forEach((tagId) => {
