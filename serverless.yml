@@ -109,6 +109,45 @@ functions:
           cors: true
           authorizer: aws_iam
 
+  # Defines an HTTP API endpoint that calls the main function in tags/create.js
+  # - path: url path is /tags
+  # - method: POST request
+  # - cors: enabled CORS (Cross-Origin Resource Sharing) for browser cross
+  #     domain api call
+  # - authorizer: authenticate using the AWS IAM role
+  create:
+    handler: tags/create.main
+    events:
+      - http:
+          path: tags
+          method: post
+          cors: true
+          authorizer: aws_iam
+
+  get:
+    # Defines an HTTP API endpoint that calls the main function in tags/get.js
+    # - path: url path is /tags/{id}
+    # - method: GET request
+    handler: tags/get.main
+    events:
+      - http:
+          path: tags/{id}
+          method: get
+          cors: true
+          authorizer: aws_iam
+
+  delete:
+    # Defines an HTTP API endpoint that calls the main function in tags/delete.js
+    # - path: url path is /tags/{id}
+    # - method: DELETE request
+    handler: tags/delete.main
+    events:
+      - http:
+          path: tags/{id}
+          method: delete
+          cors: true
+          authorizer: aws_iam
+
 # Create our resources with separate CloudFormation templates
 resources:
   # API Gateway Errors
