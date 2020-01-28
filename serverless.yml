@@ -137,6 +137,7 @@ functions:
           path: tags/{id}
           method: get
           cors: true
+          authorizer: aws_iam
 
   listTags:
     # Defines an HTTP API endpoint that calls the main function in tags/list.js
@@ -148,6 +149,7 @@ functions:
           path: tags
           method: get
           cors: true
+          authorizer: aws_iam
 
   deleteTag:
     # Defines an HTTP API endpoint that calls the main function in tags/delete.js
@@ -186,6 +188,7 @@ functions:
           path: productsToTags/{id}
           method: get
           cors: true
+          authorizer: aws_iam
 
   deleteProductToTag:
     # Defines an HTTP API endpoint that calls the main function in productsToTags/delete.js
