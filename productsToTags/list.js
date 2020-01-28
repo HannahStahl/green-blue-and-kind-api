@@ -17,10 +17,13 @@ export async function main(event, context) {
     KeyConditionExpression: "userId = :userId",
     FilterExpression: "productId = :productId",
     ExpressionAttributeValues: {
-      ":userId": event.requestContext.identity.cognitoIdentityId,
-      ":productId": event.pathParameters.id
+      ":userId": event.requestContext.identity.cognitoIdentityId
     }
   };
+  if (event.pathParameters) {
+    params.FilterExpression = "productId = :productId";
+    params.ExpressionAttributeValues[":productId"] = event.pathParameters.id;
+  }
 
   try {
     const result = await dynamoDbLib.call("query", params);
