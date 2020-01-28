@@ -1,0 +1,8 @@
+{
+  "body": "{\"productId\":\"3de307f0-4141-11ea-8844-1d79ae85e056\",\"selectedTagIds\":[\"b00dbd80-420d-11ea-ba36-69f80f369ef3\",\"89990890-420c-11ea-ba36-69f80f369ef3\"]}",
+  "requestContext": {
+    "identity": {
+      "cognitoIdentityId": "USER-SUB-1234"
+    }
+  }
+}

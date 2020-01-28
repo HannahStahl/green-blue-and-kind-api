@@ -25,7 +25,7 @@ export async function main(event, context) {
           createdAt: Date.now(),
         };
         selectedTagIds[index] = newTag.tagId;
-        promises.push(dynamoDbLib.call("post", {
+        promises.push(dynamoDbLib.call("put", {
           TableName: process.env.tagTableName,
           Item: newTag,
         }));
@@ -53,7 +53,7 @@ export async function main(event, context) {
     const existingTagIdsForProduct = existingProductToTags.map(productToTag => productToTag.tagId);
     selectedTagIds.forEach((tagId) => {
       if (!existingTagIdsForProduct.includes(tagId)) {
-        promises.push(dynamoDbLib.call("post", {
+        promises.push(dynamoDbLib.call("put", {
           TableName: process.env.productToTagTableName,
           Item: {
             userId,
