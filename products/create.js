@@ -14,10 +14,6 @@ export async function main(event, context) {
       productPrice: data.productPrice,
       productSalePrice: data.productSalePrice,
       productOnSale: data.productOnSale,
-      productSizes: data.productSizes,
-      productColors: data.productColors,
-      productPhotos: data.productPhotos,
-      productTags: data.productTags,
       createdAt: Date.now()
     }
   };

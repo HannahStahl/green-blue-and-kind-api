@@ -14,17 +14,13 @@ export async function main(event, context) {
     },
     // 'UpdateExpression' defines the attributes to be updated
     // 'ExpressionAttributeValues' defines the value in the update expression
-    UpdateExpression: "SET productName = :productName, productDescription = :productDescription, productPrice = :productPrice, productSalePrice = :productSalePrice, productOnSale = :productOnSale, productSizes = :productSizes, productColors = :productColors, productPhotos = :productPhotos, productTags = :productTags",
+    UpdateExpression: "SET productName = :productName, productDescription = :productDescription, productPrice = :productPrice, productSalePrice = :productSalePrice, productOnSale = :productOnSale",
     ExpressionAttributeValues: {
       ":productName": data.productName || null,
       ":productDescription": data.productDescription || null,
       ":productPrice": data.productPrice || null,
       ":productSalePrice": data.productSalePrice || null,
       ":productOnSale": data.productOnSale || null,
-      ":productSizes": data.productSizes || null,
-      ":productColors": data.productColors || null,
-      ":productPhotos": data.productPhotos || null,
-      ":productTags": data.productTags || null,
     },
     // 'ReturnValues' specifies if and how to return the item's attributes,
     // where ALL_NEW returns all attributes of the item after the update; you
