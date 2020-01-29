@@ -10,7 +10,7 @@ plugins:
 
 custom:
   # Our stage is based on what is passed in when running serverless
-  # commands. Or fallsback to what we have set in the provider section.
+  # commands. Or falls back to what we have set in the provider section.
   stage: ${opt:stage, self:provider.stage}
   # Set the table name here so we can use it while testing locally
   productTableName: ${self:custom.stage}-gbk-products
@@ -18,6 +18,8 @@ custom:
   productToTagTableName: ${self:custom.stage}-gbk-productsToTags
   colorTableName: ${self:custom.stage}-gbk-colors
   productToColorTableName: ${self:custom.stage}-gbk-productsToColors
+  sizeTableName: ${self:custom.stage}-gbk-sizes
+  productToSizeTableName: ${self:custom.stage}-gbk-productsToSizes
   photoTableName: ${self:custom.stage}-gbk-photos
   productToPhotoTableName: ${self:custom.stage}-gbk-productsToPhotos
 
@@ -35,6 +37,8 @@ provider:
     productToTagTableName: ${self:custom.productToTagTableName}
     colorTableName: ${self:custom.colorTableName}
     productToColorTableName: ${self:custom.productToColorTableName}
+    sizeTableName: ${self:custom.sizeTableName}
+    productToSizeTableName: ${self:custom.productToSizeTableName}
     photoTableName: ${self:custom.photoTableName}
     productToPhotoTableName: ${self:custom.productToPhotoTableName}
 
@@ -56,6 +60,8 @@ provider:
         - "Fn::GetAtt": [ ProductsToTagsTable, Arn ]
         - "Fn::GetAtt": [ ColorsTable, Arn ]
         - "Fn::GetAtt": [ ProductsToColorsTable, Arn ]
+        - "Fn::GetAtt": [ SizesTable, Arn ]
+        - "Fn::GetAtt": [ ProductsToSizesTable, Arn ]
         - "Fn::GetAtt": [ PhotosTable, Arn ]
         - "Fn::GetAtt": [ ProductsToPhotosTable, Arn ]
 
@@ -167,6 +173,30 @@ functions:
     events:
       - http:
           path: productsToColors/{id}
+          method: get
+          cors: true
+          authorizer: aws_iam
+
+  listSizes:
+    # Defines an HTTP API endpoint that calls the main function in sizes/list.js
+    # - path: url path is /sizes
+    # - method: GET request
+    handler: sizes/list.main
+    events:
+      - http:
+          path: sizes
+          method: get
+          cors: true
+          authorizer: aws_iam
+
+  listProductsToSizes:
+    # Defines an HTTP API endpoint that calls the main function in productsToSizes/list.js
+    # - path: url path is /productsToSizes/{id}
+    # - method: GET request
+    handler: productsToSizes/list.main
+    events:
+      - http:
+          path: productsToSizes/{id}
           method: get
           cors: true
           authorizer: aws_iam

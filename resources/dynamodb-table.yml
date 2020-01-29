@@ -79,6 +79,38 @@ Resources:
           KeyType: RANGE
       # Set the capacity to auto-scale
       BillingMode: PAY_PER_REQUEST
+  SizesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${self:custom.sizeTableName}
+      AttributeDefinitions:
+        - AttributeName: userId
+          AttributeType: S
+        - AttributeName: sizeId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: userId
+          KeyType: HASH
+        - AttributeName: sizeId
+          KeyType: RANGE
+      # Set the capacity to auto-scale
+      BillingMode: PAY_PER_REQUEST
+  ProductsToSizesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${self:custom.productToSizeTableName}
+      AttributeDefinitions:
+        - AttributeName: userId
+          AttributeType: S
+        - AttributeName: productToSizeId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: userId
+          KeyType: HASH
+        - AttributeName: productToSizeId
+          KeyType: RANGE
+      # Set the capacity to auto-scale
+      BillingMode: PAY_PER_REQUEST
   PhotosTable:
     Type: AWS::DynamoDB::Table
     Properties:
