@@ -5,7 +5,7 @@ export async function main(event, context) {
   const result = await update({
     userId: event.requestContext.identity.cognitoIdentityId,
     productId: data.productId,
-    selectedIds: data.selectedColorIds,
+    selectedIds: data.selectedIds,
     itemType: 'color',
   });
   return result;

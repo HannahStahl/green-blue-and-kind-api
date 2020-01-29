@@ -1,5 +1,5 @@
 {
-  "body": "{\"productId\":\"3de307f0-4141-11ea-8844-1d79ae85e056\",\"selectedTagIds\":[\"Test\",\"Test2\"]}",
+  "body": "{\"productId\":\"3de307f0-4141-11ea-8844-1d79ae85e056\",\"selectedIds\":[\"Test\",\"Test2\"]}",
   "requestContext": {
     "identity": {
       "cognitoIdentityId": "us-east-1:37d0d1c6-a6f1-437d-a52f-d7704a7ebaa1"
