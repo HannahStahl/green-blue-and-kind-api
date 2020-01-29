@@ -18,6 +18,8 @@ custom:
   productToTagTableName: ${self:custom.stage}-productsToTags
   colorTableName: ${self:custom.stage}-colors
   productToColorTableName: ${self:custom.stage}-productsToColors
+  photoTableName: ${self:custom.stage}-photos
+  productToPhotoTableName: ${self:custom.stage}-productsToPhotos
 
 provider:
   name: aws
@@ -33,6 +35,8 @@ provider:
     productToTagTableName: ${self:custom.productToTagTableName}
     colorTableName: ${self:custom.colorTableName}
     productToColorTableName: ${self:custom.productToColorTableName}
+    photoTableName: ${self:custom.photoTableName}
+    productToPhotoTableName: ${self:custom.productToPhotoTableName}
 
   iamRoleStatements:
     - Effect: Allow
@@ -52,6 +56,8 @@ provider:
         - "Fn::GetAtt": [ ProductsToTagsTable, Arn ]
         - "Fn::GetAtt": [ ColorsTable, Arn ]
         - "Fn::GetAtt": [ ProductsToColorsTable, Arn ]
+        - "Fn::GetAtt": [ PhotosTable, Arn ]
+        - "Fn::GetAtt": [ ProductsToPhotosTable, Arn ]
 
 functions:
   # Defines an HTTP API endpoint that calls the main function in products/create.js
@@ -185,6 +191,42 @@ functions:
     events:
       - http:
           path: productsToColors/{id}
+          method: get
+          cors: true
+          authorizer: aws_iam
+
+  listPhotos:
+    # Defines an HTTP API endpoint that calls the main function in photos/list.js
+    # - path: url path is /photos
+    # - method: GET request
+    handler: photos/list.main
+    events:
+      - http:
+          path: photos
+          method: get
+          cors: true
+          authorizer: aws_iam
+
+  updatePhotos:
+    # Defines an HTTP API endpoint that calls the main function in photos/update.js
+    # - path: url path is /photos
+    # - method: POST request
+    handler: photos/update.main
+    events:
+      - http:
+          path: photos
+          method: post
+          cors: true
+          authorizer: aws_iam
+
+  listProductsToPhotos:
+    # Defines an HTTP API endpoint that calls the main function in productsToPhotos/list.js
+    # - path: url path is /productsToPhotos/{id}
+    # - method: GET request
+    handler: productsToPhotos/list.main
+    events:
+      - http:
+          path: productsToPhotos/{id}
           method: get
           cors: true
           authorizer: aws_iam
