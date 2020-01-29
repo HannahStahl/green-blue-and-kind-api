@@ -16,6 +16,8 @@ custom:
   productTableName: ${self:custom.stage}-products
   tagTableName: ${self:custom.stage}-tags
   productToTagTableName: ${self:custom.stage}-productsToTags
+  colorTableName: ${self:custom.stage}-colors
+  productToColorTableName: ${self:custom.stage}-productsToColors
 
 provider:
   name: aws
@@ -29,6 +31,8 @@ provider:
     productTableName: ${self:custom.productTableName}
     tagTableName: ${self:custom.tagTableName}
     productToTagTableName: ${self:custom.productToTagTableName}
+    colorTableName: ${self:custom.colorTableName}
+    productToColorTableName: ${self:custom.productToColorTableName}
 
   iamRoleStatements:
     - Effect: Allow
@@ -46,6 +50,8 @@ provider:
         - "Fn::GetAtt": [ ProductsTable, Arn ]
         - "Fn::GetAtt": [ TagsTable, Arn ]
         - "Fn::GetAtt": [ ProductsToTagsTable, Arn ]
+        - "Fn::GetAtt": [ ColorsTable, Arn ]
+        - "Fn::GetAtt": [ ProductsToColorsTable, Arn ]
 
 functions:
   # Defines an HTTP API endpoint that calls the main function in products/create.js
@@ -143,6 +149,42 @@ functions:
     events:
       - http:
           path: productsToTags/{id}
+          method: get
+          cors: true
+          authorizer: aws_iam
+
+  listColors:
+    # Defines an HTTP API endpoint that calls the main function in colors/list.js
+    # - path: url path is /colors
+    # - method: GET request
+    handler: colors/list.main
+    events:
+      - http:
+          path: colors
+          method: get
+          cors: true
+          authorizer: aws_iam
+
+  updateColors:
+    # Defines an HTTP API endpoint that calls the main function in colors/update.js
+    # - path: url path is /colors
+    # - method: POST request
+    handler: colors/update.main
+    events:
+      - http:
+          path: colors
+          method: post
+          cors: true
+          authorizer: aws_iam
+
+  listProductsToColors:
+    # Defines an HTTP API endpoint that calls the main function in productsToColors/list.js
+    # - path: url path is /productsToColors/{id}
+    # - method: GET request
+    handler: productsToColors/list.main
+    events:
+      - http:
+          path: productsToColors/{id}
           method: get
           cors: true
           authorizer: aws_iam
