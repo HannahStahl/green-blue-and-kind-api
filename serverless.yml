@@ -13,13 +13,13 @@ custom:
   # commands. Or fallsback to what we have set in the provider section.
   stage: ${opt:stage, self:provider.stage}
   # Set the table name here so we can use it while testing locally
-  productTableName: ${self:custom.stage}-products
-  tagTableName: ${self:custom.stage}-tags
-  productToTagTableName: ${self:custom.stage}-productsToTags
-  colorTableName: ${self:custom.stage}-colors
-  productToColorTableName: ${self:custom.stage}-productsToColors
-  photoTableName: ${self:custom.stage}-photos
-  productToPhotoTableName: ${self:custom.stage}-productsToPhotos
+  productTableName: ${self:custom.stage}-gbk-products
+  tagTableName: ${self:custom.stage}-gbk-tags
+  productToTagTableName: ${self:custom.stage}-gbk-productsToTags
+  colorTableName: ${self:custom.stage}-gbk-colors
+  productToColorTableName: ${self:custom.stage}-gbk-productsToColors
+  photoTableName: ${self:custom.stage}-gbk-photos
+  productToPhotoTableName: ${self:custom.stage}-gbk-productsToPhotos
 
 provider:
   name: aws
@@ -135,18 +135,6 @@ functions:
           cors: true
           authorizer: aws_iam
 
-  updateTags:
-    # Defines an HTTP API endpoint that calls the main function in tags/update.js
-    # - path: url path is /tags
-    # - method: POST request
-    handler: tags/update.main
-    events:
-      - http:
-          path: tags
-          method: post
-          cors: true
-          authorizer: aws_iam
-
   listProductsToTags:
     # Defines an HTTP API endpoint that calls the main function in productsToTags/list.js
     # - path: url path is /productsToTags/{id}
@@ -168,18 +156,6 @@ functions:
       - http:
           path: colors
           method: get
-          cors: true
-          authorizer: aws_iam
-
-  updateColors:
-    # Defines an HTTP API endpoint that calls the main function in colors/update.js
-    # - path: url path is /colors
-    # - method: POST request
-    handler: colors/update.main
-    events:
-      - http:
-          path: colors
-          method: post
           cors: true
           authorizer: aws_iam
 
@@ -207,18 +183,6 @@ functions:
           cors: true
           authorizer: aws_iam
 
-  updatePhotos:
-    # Defines an HTTP API endpoint that calls the main function in photos/update.js
-    # - path: url path is /photos
-    # - method: POST request
-    handler: photos/update.main
-    events:
-      - http:
-          path: photos
-          method: post
-          cors: true
-          authorizer: aws_iam
-
   listProductsToPhotos:
     # Defines an HTTP API endpoint that calls the main function in productsToPhotos/list.js
     # - path: url path is /productsToPhotos/{id}
@@ -228,6 +192,18 @@ functions:
       - http:
           path: productsToPhotos/{id}
           method: get
+          cors: true
+          authorizer: aws_iam
+
+  update:
+    # Defines an HTTP API endpoint that calls the main function in update.js
+    # - path: url path is /values
+    # - method: POST request
+    handler: update.main
+    events:
+      - http:
+          path: values
+          method: post
           cors: true
           authorizer: aws_iam
 

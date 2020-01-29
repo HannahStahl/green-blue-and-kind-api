@@ -6,7 +6,10 @@ function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-export async function update({ userId, productId, selectedIds, itemType }) {
+export async function main(event, context) {
+  const userId = event.requestContext.identity.cognitoIdentityId;
+  const data = JSON.parse(event.body);
+  const { productId, selectedIds, itemType } = data;
   try {
     // Add any new values that were created
     const tableName = process.env[`${itemType}TableName`];
