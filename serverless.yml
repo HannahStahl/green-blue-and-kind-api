@@ -225,14 +225,14 @@ functions:
           cors: true
           authorizer: aws_iam
 
-  update:
-    # Defines an HTTP API endpoint that calls the main function in update.js
-    # - path: url path is /values
+  updateItems:
+    # Defines an HTTP API endpoint that calls the main function in updateItems.js
+    # - path: url path is /items
     # - method: POST request
-    handler: update.main
+    handler: updateItems.main
     events:
       - http:
-          path: values
+          path: items
           method: post
           cors: true
           authorizer: aws_iam
