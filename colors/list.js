@@ -1,5 +1,5 @@
-import { main } from "../listItems";
+import { listItems } from "../listItems";
 
 export async function main(event, context) {
-  return main(event, process.env.colorTableName);
+  return listItems(event, process.env.colorTableName);
 }

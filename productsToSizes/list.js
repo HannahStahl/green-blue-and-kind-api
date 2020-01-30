@@ -1,5 +1,5 @@
-import { main } from "../listRelationships";
+import { listRelationships } from "../listRelationships";
 
 export async function main(event, context) {
-  return main(event, process.env.productToSizeTableName);
+  return listRelationships(event, process.env.productToSizeTableName);
 }
