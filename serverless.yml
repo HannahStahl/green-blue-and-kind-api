@@ -86,12 +86,12 @@ functions:
 
   getCategory:
     # Defines an HTTP API endpoint that calls the main function in categories/get.js
-    # - path: url path is /categories/{id}
+    # - path: url path is /category/{id}
     # - method: GET request
     handler: categories/get.main
     events:
       - http:
-          path: categories/{id}
+          path: category/{id}
           method: get
           cors: true
           authorizer: aws_iam
@@ -149,24 +149,24 @@ functions:
 
   getProduct:
     # Defines an HTTP API endpoint that calls the main function in products/get.js
-    # - path: url path is /products/{id}
+    # - path: url path is /product/{id}
     # - method: GET request
     handler: products/get.main
     events:
       - http:
-          path: products/{id}
+          path: product/{id}
           method: get
           cors: true
           authorizer: aws_iam
 
   listProducts:
     # Defines an HTTP API endpoint that calls the main function in products/list.js
-    # - path: url path is /products
+    # - path: url path is /products/{id}
     # - method: GET request
     handler: products/list.main
     events:
       - http:
-          path: products
+          path: products/{id}
           method: get
           cors: true
           authorizer: aws_iam
