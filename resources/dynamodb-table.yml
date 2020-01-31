@@ -1,4 +1,20 @@
 Resources:
+  CategoriesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${self:custom.categoryTableName}
+      AttributeDefinitions:
+        - AttributeName: userId
+          AttributeType: S
+        - AttributeName: categoryId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: userId
+          KeyType: HASH
+        - AttributeName: categoryId
+          KeyType: RANGE
+      # Set the capacity to auto-scale
+      BillingMode: PAY_PER_REQUEST
   ProductsTable:
     Type: AWS::DynamoDB::Table
     Properties:

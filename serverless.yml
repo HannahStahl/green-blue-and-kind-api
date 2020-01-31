@@ -13,6 +13,7 @@ custom:
   # commands. Or falls back to what we have set in the provider section.
   stage: ${opt:stage, self:provider.stage}
   # Set the table name here so we can use it while testing locally
+  categoryTableName: ${self:custom.stage}-gbk-categories
   productTableName: ${self:custom.stage}-gbk-products
   tagTableName: ${self:custom.stage}-gbk-tags
   productToTagTableName: ${self:custom.stage}-gbk-productsToTags
@@ -32,6 +33,7 @@ provider:
   # These environment variables are made available to our functions
   # under process.env.
   environment:
+    categoryTableName: ${self:custom.categoryTableName}
     productTableName: ${self:custom.productTableName}
     tagTableName: ${self:custom.tagTableName}
     productToTagTableName: ${self:custom.productToTagTableName}
@@ -55,6 +57,7 @@ provider:
       # Restrict our IAM role permissions to
       # the specific table for the stage
       Resource:
+        - "Fn::GetAtt": [ CategoriesTable, Arn ]
         - "Fn::GetAtt": [ ProductsTable, Arn ]
         - "Fn::GetAtt": [ TagsTable, Arn ]
         - "Fn::GetAtt": [ ProductsToTagsTable, Arn ]
@@ -66,6 +69,69 @@ provider:
         - "Fn::GetAtt": [ ProductsToPhotosTable, Arn ]
 
 functions:
+  # Defines an HTTP API endpoint that calls the main function in categories/create.js
+  # - path: url path is /categories
+  # - method: POST request
+  # - cors: enabled CORS (Cross-Origin Resource Sharing) for browser cross
+  #     domain api call
+  # - authorizer: authenticate using the AWS IAM role
+  createCategory:
+    handler: categories/create.main
+    events:
+      - http:
+          path: categories
+          method: post
+          cors: true
+          authorizer: aws_iam
+
+  getCategory:
+    # Defines an HTTP API endpoint that calls the main function in categories/get.js
+    # - path: url path is /categories/{id}
+    # - method: GET request
+    handler: categories/get.main
+    events:
+      - http:
+          path: categories/{id}
+          method: get
+          cors: true
+          authorizer: aws_iam
+
+  listCategories:
+    # Defines an HTTP API endpoint that calls the main function in categories/list.js
+    # - path: url path is /categories
+    # - method: GET request
+    handler: categories/list.main
+    events:
+      - http:
+          path: categories
+          method: get
+          cors: true
+          authorizer: aws_iam
+
+  updateCategory:
+    # Defines an HTTP API endpoint that calls the main function in categories/update.js
+    # - path: url path is /categories/{id}
+    # - method: PUT request
+    handler: categories/update.main
+    events:
+      - http:
+          path: categories/{id}
+          method: put
+          cors: true
+          authorizer: aws_iam
+
+  deleteCategory:
+    # Defines an HTTP API endpoint that calls the main function in categories/delete.js
+    # - path: url path is /categories/{id}
+    # - method: DELETE request
+    handler: categories/delete.main
+    events:
+      - http:
+          path: categories/{id}
+          method: delete
+          cors: true
+          authorizer: aws_iam
+
   # Defines an HTTP API endpoint that calls the main function in products/create.js
   # - path: url path is /products
   # - method: POST request
