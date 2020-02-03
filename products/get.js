@@ -7,9 +7,10 @@ export async function main(event, context) {
     // 'Key' defines the partition key and sort key of the item to be retrieved
     // - 'userId': Identity Pool identity id
     // - 'productId': path parameter
-    Key: {
-      userId: "us-east-1:37d0d1c6-a6f1-437d-a52f-d7704a7ebaa1",
-      productId: event.pathParameters.id
+    KeyConditionExpression: "userId = :userId, productId = :productId",
+    ExpressionAttributeValues: {
+      ":userId": "us-east-1:37d0d1c6-a6f1-437d-a52f-d7704a7ebaa1",
+      ":productId": event.pathParameters.id
     }
   };
 
