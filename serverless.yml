@@ -94,7 +94,6 @@ functions:
           path: category/{id}
           method: get
           cors: true
-          authorizer: aws_iam
 
   listCategories:
     # Defines an HTTP API endpoint that calls the main function in categories/list.js
@@ -106,7 +105,6 @@ functions:
           path: categories
           method: get
           cors: true
-          authorizer: aws_iam
 
   updateCategory:
     # Defines an HTTP API endpoint that calls the main function in categories/update.js
@@ -157,7 +155,6 @@ functions:
           path: product/{id}
           method: get
           cors: true
-          authorizer: aws_iam
 
   listAllProducts:
     # Defines an HTTP API endpoint that calls the main function in products/list.js
@@ -169,7 +166,6 @@ functions:
           path: products
           method: get
           cors: true
-          authorizer: aws_iam
 
   listProducts:
     # Defines an HTTP API endpoint that calls the main function in products/list.js
@@ -181,7 +177,6 @@ functions:
           path: products/{id}
           method: get
           cors: true
-          authorizer: aws_iam
 
   updateProduct:
     # Defines an HTTP API endpoint that calls the main function in products/update.js
@@ -217,7 +212,6 @@ functions:
           path: tags
           method: get
           cors: true
-          authorizer: aws_iam
 
   listProductsToTags:
     # Defines an HTTP API endpoint that calls the main function in productsToTags/list.js
@@ -229,7 +223,6 @@ functions:
           path: productsToTags/{id}
           method: get
           cors: true
-          authorizer: aws_iam
 
   listColors:
     # Defines an HTTP API endpoint that calls the main function in colors/list.js
@@ -241,7 +234,6 @@ functions:
           path: colors
           method: get
           cors: true
-          authorizer: aws_iam
 
   listProductsToColors:
     # Defines an HTTP API endpoint that calls the main function in productsToColors/list.js
@@ -253,7 +245,6 @@ functions:
           path: productsToColors/{id}
           method: get
           cors: true
-          authorizer: aws_iam
 
   listSizes:
     # Defines an HTTP API endpoint that calls the main function in sizes/list.js
@@ -265,7 +256,6 @@ functions:
           path: sizes
           method: get
           cors: true
-          authorizer: aws_iam
 
   listProductsToSizes:
     # Defines an HTTP API endpoint that calls the main function in productsToSizes/list.js
@@ -277,7 +267,6 @@ functions:
           path: productsToSizes/{id}
           method: get
           cors: true
-          authorizer: aws_iam
 
   listPhotos:
     # Defines an HTTP API endpoint that calls the main function in photos/list.js
@@ -289,7 +278,6 @@ functions:
           path: photos
           method: get
           cors: true
-          authorizer: aws_iam
 
   listAllProductsToPhotos:
     # Defines an HTTP API endpoint that calls the main function in productsToPhotos/list.js
@@ -301,7 +289,6 @@ functions:
           path: productsToPhotos
           method: get
           cors: true
-          authorizer: aws_iam
 
   listProductsToPhotos:
     # Defines an HTTP API endpoint that calls the main function in productsToPhotos/list.js
@@ -313,7 +300,6 @@ functions:
           path: productsToPhotos/{id}
           method: get
           cors: true
-          authorizer: aws_iam
 
   updateItems:
     # Defines an HTTP API endpoint that calls the main function in updateItems.js
