@@ -9,7 +9,7 @@ export async function listRelationships(event, tableName) {
       ":userId": event.requestContext.identity.cognitoIdentityId
     }
   };
-  if (event.pathParameters) {
+  if (event.pathParameters && event.pathParameters.id) {
     params.FilterExpression = "productId = :productId";
     params.ExpressionAttributeValues[":productId"] = event.pathParameters.id;
   }

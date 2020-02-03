@@ -159,6 +159,18 @@ functions:
           cors: true
           authorizer: aws_iam
 
+  listAllProducts:
+    # Defines an HTTP API endpoint that calls the main function in products/list.js
+    # - path: url path is /products
+    # - method: GET request
+    handler: products/list.main
+    events:
+      - http:
+          path: products
+          method: get
+          cors: true
+          authorizer: aws_iam
+
   listProducts:
     # Defines an HTTP API endpoint that calls the main function in products/list.js
     # - path: url path is /products/{id}
@@ -275,6 +287,18 @@ functions:
     events:
       - http:
           path: photos
+          method: get
+          cors: true
+          authorizer: aws_iam
+
+  listAllProductsToPhotos:
+    # Defines an HTTP API endpoint that calls the main function in productsToPhotos/list.js
+    # - path: url path is /productsToPhotos
+    # - method: GET request
+    handler: productsToPhotos/list.main
+    events:
+      - http:
+          path: productsToPhotos
           method: get
           cors: true
           authorizer: aws_iam
