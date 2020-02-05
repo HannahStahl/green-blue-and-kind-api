@@ -213,6 +213,17 @@ functions:
           method: get
           cors: true
 
+  listAllProductsToTags:
+    # Defines an HTTP API endpoint that calls the main function in productsToTags/list.js
+    # - path: url path is /productsToTags
+    # - method: GET request
+    handler: productsToTags/list.main
+    events:
+      - http:
+          path: productsToTags
+          method: get
+          cors: true
+
   listProductsToTags:
     # Defines an HTTP API endpoint that calls the main function in productsToTags/list.js
     # - path: url path is /productsToTags/{id}
