@@ -7,7 +7,7 @@ export async function main(event, context) {
   const params = {
     TableName: process.env.productTableName,
     Item: {
-      userId: event.requestContext.identity.cognitoIdentityId,
+      userId: process.env.userId,
       productId: uuid.v1(),
       productName: data.productName,
       productDescription: data.productDescription,

@@ -7,7 +7,7 @@ function capitalize(str) {
 }
 
 export async function main(event, context) {
-  const userId = event.requestContext.identity.cognitoIdentityId;
+  const userId = process.env.userId;
   const data = JSON.parse(event.body);
   const { productId, selectedIds, itemType } = data;
   try {
