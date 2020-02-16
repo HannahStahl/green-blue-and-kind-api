@@ -3,7 +3,7 @@ import { success, failure } from "./libs/response-lib";
 
 export async function main(event, context) {
   const params = {
-    TableName: tableName,
+    TableName: process.env.categoryTableName,
     KeyConditionExpression: "userId = :userId",
     FilterExpression: "categoryPublished = true",
     ExpressionAttributeValues: {

@@ -112,12 +112,12 @@ functions:
 
   listPublishedCategories:
     # Defines an HTTP API endpoint that calls the main function in categories/listPublished.js
-    # - path: url path is /categories
+    # - path: url path is /publishedCategories
     # - method: GET request
     handler: categories/listPublished.main
     events:
       - http:
-          path: categories
+          path: publishedCategories
           method: get
           cors: true
 
@@ -195,12 +195,12 @@ functions:
 
   listPublishedProducts:
   # Defines an HTTP API endpoint that calls the main function in products/listPublished.js
-  # - path: url path is /products
+  # - path: url path is /publishedProducts/{id}
   # - method: GET request
   handler: products/listPublished.main
   events:
     - http:
-        path: products
+        path: publishedProducts/{id}
         method: get
         cors: true
 
