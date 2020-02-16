@@ -68,9 +68,10 @@ export async function main(event, context) {
           },
         }));
       } else {
+        const existingRelationship = existingRelationships.find(relationship => relationship[`${itemType}Id`] === id);
         promises.push(dynamoDbLib.call("update", {
           TableName: joiningTableName,
-          Key: { userId, [`productTo${capitalize(itemType)}Id`]: id },
+          Key: { userId, [`productTo${capitalize(itemType)}Id`]: existingRelationship[`productTo${capitalize(itemType)}Id`] },
           UpdateExpression: `SET productId = :productId, ${itemType}Id = :${itemType}Id, productTo${capitalize(itemType)}Rank = :productTo${capitalize(itemType)}Rank`,
           ExpressionAttributeValues: {
             ":productId": productId,
