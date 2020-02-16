@@ -69,7 +69,7 @@ export async function main(event, context) {
           TableName: joiningTableName,
           Key: { userId, [`${itemType}Id`]: id },
           UpdateExpression: `SET ${itemType}Rank = :${itemType}Rank`,
-          ExpressionAttributeValues: { [`":${itemType}Rank"`]: index },
+          ExpressionAttributeValues: { [`:${itemType}Rank`]: index },
           ReturnValues: "ALL_NEW"
         }));
       }
