@@ -14,13 +14,14 @@ export async function main(event, context) {
     },
     // 'UpdateExpression' defines the attributes to be updated
     // 'ExpressionAttributeValues' defines the value in the update expression
-    UpdateExpression: "SET productName = :productName, productDescription = :productDescription, productPrice = :productPrice, productSalePrice = :productSalePrice, productOnSale = :productOnSale, categoryId = :categoryId",
+    UpdateExpression: "SET productName = :productName, productDescription = :productDescription, productPrice = :productPrice, productSalePrice = :productSalePrice, productOnSale = :productOnSale, productState = :productState, categoryId = :categoryId",
     ExpressionAttributeValues: {
       ":productName": data.productName || null,
       ":productDescription": data.productDescription || null,
       ":productPrice": data.productPrice || null,
       ":productSalePrice": data.productSalePrice || null,
       ":productOnSale": data.productOnSale || null,
+      ":productState": data.productState || null,
       ":categoryId": data.categoryId || null,
     },
     // 'ReturnValues' specifies if and how to return the item's attributes,
