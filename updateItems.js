@@ -74,7 +74,7 @@ export async function main(event, context) {
           UpdateExpression: `SET productId = :productId, ${itemType}Id = :${itemType}Id, productTo${capitalize(itemType)}Rank = :productTo${capitalize(itemType)}Rank`,
           ExpressionAttributeValues: {
             ":productId": productId,
-            [`${itemType}Id`]: id,
+            [`:${itemType}Id`]: id,
             [`:productTo${capitalize(itemType)}Rank`]: index
           },
           ReturnValues: "ALL_NEW"
