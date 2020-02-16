@@ -5,9 +5,10 @@ export async function main(event, context) {
   const params = {
     TableName: process.env.categoryTableName,
     KeyConditionExpression: "userId = :userId",
-    FilterExpression: "categoryPublished = true",
+    FilterExpression: "categoryPublished = :categoryPublished",
     ExpressionAttributeValues: {
-      ":userId": process.env.userId
+      ":userId": process.env.userId,
+      ":categoryPublished": true
     }
   };
 
