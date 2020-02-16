@@ -54,11 +54,12 @@ export async function main(event, context) {
 
     // Add any new relationships to this product
     const existingIdsForProduct = existingRelationships.map(relationship => relationship[`${itemType}Id`]);
-    selectedIds.forEach((id) => {
+    selectedIds.forEach((id, index) => {
       if (!existingIdsForProduct.includes(id)) {
         const item = { userId, productId, createdAt: Date.now() };
         item[`productTo${capitalize(itemType)}Id`] = uuid.v1();
         item[`${itemType}Id`] = id;
+        item[`${itemType}Rank`] = index;
         promises.push(dynamoDbLib.call("put", {
           TableName: joiningTableName,
           Item: item,
