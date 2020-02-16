@@ -71,8 +71,12 @@ export async function main(event, context) {
         promises.push(dynamoDbLib.call("update", {
           TableName: joiningTableName,
           Key: { userId, [`productTo${capitalize(itemType)}Id`]: id },
-          UpdateExpression: `SET productTo${capitalize(itemType)}Rank = :productTo${capitalize(itemType)}Rank`,
-          ExpressionAttributeValues: { [`:productTo${capitalize(itemType)}Rank`]: index },
+          UpdateExpression: `SET productId = :productId, ${itemType}Id = :${itemType}Id, productTo${capitalize(itemType)}Rank = :productTo${capitalize(itemType)}Rank`,
+          ExpressionAttributeValues: {
+            ":productId": productId,
+            [`${itemType}Id`]: id,
+            [`:productTo${capitalize(itemType)}Rank`]: index
+          },
           ReturnValues: "ALL_NEW"
         }));
       }
