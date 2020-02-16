@@ -18,7 +18,8 @@ export async function main(event, context) {
 
   try {
     const result = await dynamoDbLib.call("query", params);
-    return success(result.Items);
+    const sortedItems = result.Items.sort((a, b) => a.productRank - b.productRank);
+    return success(sortedItems);
   } catch (error) {
     return failure({ status: false, error });
   }
