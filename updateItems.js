@@ -64,6 +64,14 @@ export async function main(event, context) {
           TableName: joiningTableName,
           Item: item,
         }));
+      } else {
+        promises.push(dynamoDbLib.call("update", {
+          TableName: joiningTableName,
+          Key: { userId, [`${itemType}Id`]: id },
+          UpdateExpression: `SET ${itemType}Rank = :${itemType}Rank`,
+          ExpressionAttributeValues: { [`":${itemType}Rank"`]: index },
+          ReturnValues: "ALL_NEW"
+        }));
       }
     });
     await Promise.all(promises);
