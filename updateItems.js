@@ -56,20 +56,23 @@ export async function main(event, context) {
     const existingIdsForProduct = existingRelationships.map(relationship => relationship[`${itemType}Id`]);
     selectedIds.forEach((id, index) => {
       if (!existingIdsForProduct.includes(id)) {
-        const item = { userId, productId, createdAt: Date.now() };
-        item[`productTo${capitalize(itemType)}Id`] = uuid.v1();
-        item[`${itemType}Id`] = id;
-        item[`${itemType}Rank`] = index;
         promises.push(dynamoDbLib.call("put", {
           TableName: joiningTableName,
-          Item: item,
+          Item: {
+            [`productTo${capitalize(itemType)}Id`]: uuid.v1(),
+            userId,
+            productId,
+            [`${itemType}Id`]: id,
+            [`productTo${capitalize(itemType)}Rank`]: index,
+            createdAt: Date.now(),
+          },
         }));
       } else {
         promises.push(dynamoDbLib.call("update", {
           TableName: joiningTableName,
-          Key: { userId, [`${itemType}Id`]: id },
-          UpdateExpression: `SET ${itemType}Rank = :${itemType}Rank`,
-          ExpressionAttributeValues: { [`:${itemType}Rank`]: index },
+          Key: { userId, [`productTo${capitalize(itemType)}Id`]: id },
+          UpdateExpression: `SET productTo${capitalize(itemType)}Rank = :productTo${capitalize(itemType)}Rank`,
+          ExpressionAttributeValues: { [`:productTo${capitalize(itemType)}Rank`]: index },
           ReturnValues: "ALL_NEW"
         }));
       }
