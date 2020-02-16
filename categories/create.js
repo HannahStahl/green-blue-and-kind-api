@@ -12,7 +12,7 @@ export async function main(event, context) {
       categoryName: data.categoryName,
       categoryPhoto: data.categoryPhoto,
       categoryRank: data.categoryRank,
-      categoryState: data.categoryState,
+      categoryPublished: data.categoryPublished,
       createdAt: Date.now()
     }
   };

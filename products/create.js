@@ -14,7 +14,7 @@ export async function main(event, context) {
       productPrice: data.productPrice,
       productSalePrice: data.productSalePrice,
       productOnSale: data.productOnSale,
-      productState: data.productState,
+      productPublished: data.productPublished,
       categoryId: data.categoryId,
       createdAt: Date.now()
     }

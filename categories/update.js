@@ -14,12 +14,12 @@ export async function main(event, context) {
     },
     // 'UpdateExpression' defines the attributes to be updated
     // 'ExpressionAttributeValues' defines the value in the update expression
-    UpdateExpression: "SET categoryName = :categoryName, categoryPhoto = :categoryPhoto, categoryRank = :categoryRank, categoryState = :categoryState",
+    UpdateExpression: "SET categoryName = :categoryName, categoryPhoto = :categoryPhoto, categoryRank = :categoryRank, categoryPublished = :categoryPublished",
     ExpressionAttributeValues: {
       ":categoryName": data.categoryName || null,
       ":categoryPhoto": data.categoryPhoto || null,
       ":categoryRank": data.categoryRank || null,
-      ":categoryState": data.categoryState || null,
+      ":categoryPublished": data.categoryPublished || null,
     },
     // 'ReturnValues' specifies if and how to return the item's attributes,
     // where ALL_NEW returns all attributes of the item after the update; you
