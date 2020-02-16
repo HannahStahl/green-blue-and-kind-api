@@ -1,5 +1,5 @@
 import { listRelationships } from "../listRelationships";
 
 export async function main(event, context) {
-  return listRelationships(event, process.env.productToColorTableName, "color");
+  return listRelationships(event, process.env.productToColorTableName, "Color");
 }

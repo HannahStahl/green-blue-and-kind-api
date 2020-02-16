@@ -16,7 +16,7 @@ export async function listRelationships(event, tableName, itemType) {
 
   try {
     const result = await dynamoDbLib.call("query", params);
-    const sortedItems = result.Items.sort((a, b) => a[`${itemType}Rank`] - b[`${itemType}Rank`]);
+    const sortedItems = result.Items.sort((a, b) => a[`productTo${itemType}Rank`] - b[`productTo${itemType}Rank`]);
     return success(sortedItems);
   } catch (error) {
     return failure({ status: false, error });
