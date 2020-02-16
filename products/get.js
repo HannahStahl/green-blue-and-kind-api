@@ -8,7 +8,7 @@ export async function main(event, context) {
     // - 'userId': Identity Pool identity id
     // - 'productId': path parameter
     Key: {
-      userId: "us-east-1:37d0d1c6-a6f1-437d-a52f-d7704a7ebaa1",
+      userId: process.env.userId,
       productId: event.pathParameters.id
     }
   };

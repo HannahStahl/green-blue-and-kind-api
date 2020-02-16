@@ -23,6 +23,9 @@ custom:
   productToSizeTableName: ${self:custom.stage}-gbk-productsToSizes
   photoTableName: ${self:custom.stage}-gbk-photos
   productToPhotoTableName: ${self:custom.stage}-gbk-productsToPhotos
+  userId:
+    dev: "us-east-1:37d0d1c6-a6f1-437d-a52f-d7704a7ebaa1"
+    prod: "us-east-1:6f653f96-bb20-4720-b4a3-2ebed5c65044"
 
 provider:
   name: aws
@@ -43,6 +46,7 @@ provider:
     productToSizeTableName: ${self:custom.productToSizeTableName}
     photoTableName: ${self:custom.photoTableName}
     productToPhotoTableName: ${self:custom.productToPhotoTableName}
+    userId: ${self:custom.userId.${self:custom.stage}}
 
   iamRoleStatements:
     - Effect: Allow
