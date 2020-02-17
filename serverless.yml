@@ -192,6 +192,17 @@ functions:
           path: products/{id}
           method: get
           cors: true
+  
+  listAllPublishedProducts:
+    # Defines an HTTP API endpoint that calls the main function in products/listPublished.js
+    # - path: url path is /publishedProducts
+    # - method: GET request
+    handler: products/listPublished.main
+    events:
+      - http:
+          path: publishedProducts
+          method: get
+          cors: true  
 
   listPublishedProducts:
     # Defines an HTTP API endpoint that calls the main function in products/listPublished.js
