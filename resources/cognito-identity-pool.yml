@@ -80,7 +80,7 @@ Resources:
                     - ''
                     -
                       - Fn::GetAtt: [AttachmentsBucket, Arn]
-                      - '/'
+                      - '/public/'
   
 # Print out the Id of the Identity Pool that is created
 Outputs:
